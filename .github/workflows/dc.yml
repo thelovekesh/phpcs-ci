@@ -26,6 +26,8 @@ jobs:
 
       - name: Run PHPCS CI
         uses: docker://ghcr.io/thelovekesh/phpcs-ci:develop
+        with:
+          args: WordPress,Generic
 
   # build-and-push:
   #   runs-on: ubuntu-latest
