@@ -84,23 +84,21 @@ CMD+=( "--runtime-set" )
 CMD+=( "ignore_warnings_on_exit" )
 CMD+=( "1" )
 
+# Set directory to scan.
+CMD+=( "$DOCKER_GITHUB_WORKSPACE" )
+
 # Run only if cs2pr is enabled.
 if [[ "$CS2PR" == "false" ]]; then
   echo "::group::Run ${CMD[@]}"
-  "${CMD[@]}" "$DOCKER_GITHUB_WORKSPACE"
+  "${CMD[@]}"
   echo "::endgroup::"
 else
-  # add pipe to cs2pr
-  CMD+=( "|" )
-  CMD+=( "cs2pr" )
-
+  cs2pr_flags='-graceful-warnings'
   if [[ -n "$PHPCS_CS2PR_FLAGS" ]]; then
-    CMD+=( "$PHPCS_CS2PR_FLAGS" )
-  else
-    CMD+=( "--graceful-warnings" )
+    cs2pr_flags="$PHPCS_CS2PR_FLAGS"
   fi
 
   echo "::group::Run ${CMD[@]}"
-  "${CMD[@]}" "$DOCKER_GITHUB_WORKSPACE"
+  "${CMD[@]}" | cs2pr $cs2pr_flags
   echo "::endgroup::"
 fi;
