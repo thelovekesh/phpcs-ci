@@ -96,7 +96,7 @@ if [[ "$CS2PR" == "false" ]]; then
   "${CMD[@]}"
   echo "::endgroup::"
 else
-  cs2pr_flags='-graceful-warnings'
+  cs2pr_flags='--graceful-warnings'
   if [[ -n "$PHPCS_CS2PR_FLAGS" ]]; then
     cs2pr_flags="$PHPCS_CS2PR_FLAGS"
   fi
