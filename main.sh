@@ -71,6 +71,9 @@ CMD+=( "--standard=$phpcs_standard" )
 # Set report type.
 CMD+=( "--report=checkstyle" )
 
+# Set report path.
+CMD+=( "--report-file=/tmp/annotations.xml" )
+
 # Run PHPCS quietly.
 CMD+=( "-q" )
 
@@ -103,6 +106,6 @@ else
   echo "::endgroup::"
 
   echo "::group::Run cs2pr $cs2pr_flags"
-  cs2pr $cs2pr_flags
+  cs2pr $cs2pr_flags /tmp/annotations.xml
   echo "::endgroup::"
 fi;
