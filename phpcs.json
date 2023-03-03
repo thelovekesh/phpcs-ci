@@ -1,0 +1,36 @@
+{
+  "phpcs": {
+    "repo": "squizlabs/PHP_CodeSniffer",
+    "version": "3.7.2"
+  },
+  "standards": {
+    "wpcs": {
+      "repo": "WordPress/WordPress-Coding-Standards",
+      "version": "2.3.0"
+    },
+    "vipwpcs": {
+      "repo": "Automattic/vip-coding-standards",
+      "version": "2.3.3"
+    },
+    "WPThemeReview": {
+      "repo": "WPTT/WPThemeReview",
+      "version": "0.2.1"
+    },
+    "PHPCSUtils": {
+      "repo": "PHPCSStandards/PHPCSUtils",
+      "version": "1.0.1"
+    },
+    "php-compatibility": {
+      "repo": "PHPCompatibility/PHPCompatibility",
+      "version": "9.3.5"
+    },
+    "phpcs-variable-analysis": {
+      "repo": "sirbrillig/phpcs-variable-analysis",
+      "version": "v2.11.10"
+    },
+    "phpcompatibility-paragonie": {
+      "repo": "PHPCompatibility/PHPCompatibilityParagonie",
+      "version": "1.3.2"
+    }
+  }
+}
