@@ -58,4 +58,4 @@ USER $DOCKER_USER
 
 WORKDIR $ACTION_WORKDIR
 
-RUN bash /usr/local/bin/phpcs-init.sh ${ACTION_WORKDIR} /tmp/phpcs.json
+RUN bash /usr/local/bin/phpcs-init.sh ${ACTION_WORKDIR} /tmp
