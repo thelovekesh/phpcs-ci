@@ -101,11 +101,7 @@ else
     cs2pr_flags="$PHPCS_CS2PR_FLAGS"
   fi
 
-  echo "::group::Run ${CMD[@]}"
   "${CMD[@]}"
-  echo "::endgroup::"
 
-  echo "::group::Run cs2pr $cs2pr_flags"
   cs2pr $cs2pr_flags /tmp/annotations.xml
-  echo "::endgroup::"
 fi;
