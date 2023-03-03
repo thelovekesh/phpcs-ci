@@ -2,10 +2,11 @@
 
 # custom path for files to override default files
 custom_path="$GITHUB_WORKSPACE/.github/phpcs-ci/"
-main_script="/usr/local/bin/main.sh"
 
 if [[ -d "$custom_path" ]]; then
-    rsync -a "$custom_path" /usr/local/bin/
-fi
+    rsync -a "$custom_path" /tmp/phpcs-ci/
 
-bash "$main_script" "$@"
+    bash /tmp/phpcs-ci/main.sh "$@"
+else
+    bash /usr/local/bin/main.sh "$@"
+fi
