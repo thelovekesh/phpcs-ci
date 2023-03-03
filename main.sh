@@ -101,10 +101,13 @@ else
     cs2pr_flags="$PHPCS_CS2PR_FLAGS"
   fi
 
+  echo "::group::Run ${CMD[@]}"
   "${CMD[@]}"
+  echo "::endgroup::"
 
   # Remove all occurances of $DOCKER_GITHUB_WORKSPACE before file names, as GitHUb annotations only support relative paths.
   sed -i "s|$DOCKER_GITHUB_WORKSPACE/||g" /tmp/annotations.xml
 
+  echo "Run cs2pr $cs2pr_flags /tmp/annotations.xml"
   cs2pr $cs2pr_flags /tmp/annotations.xml
 fi;
