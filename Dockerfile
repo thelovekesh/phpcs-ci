@@ -51,12 +51,11 @@ RUN set -ex \
     done \
   && php -v;
 
+COPY phpcs.json /tmp/phpcs.json
 COPY bin/phpcs-init.sh /usr/local/bin/
-
-RUN chmod +x /usr/local/bin/phpcs-init.sh
 
 USER $DOCKER_USER
 
 WORKDIR $ACTION_WORKDIR
 
-RUN /usr/local/bin/phpcs-init.sh
+RUN bash /usr/local/bin/phpcs-init.sh ${ACTION_WORKDIR} /tmp
