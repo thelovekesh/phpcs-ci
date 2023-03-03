@@ -31,6 +31,10 @@
     "phpcompatibility-paragonie": {
       "repo": "PHPCompatibility/PHPCompatibilityParagonie",
       "version": "1.3.2"
+    },
+    "phpcompatibilitywp": {
+      "repo": "PHPCompatibility/PHPCompatibilityWP",
+      "version": "2.1.4"
     }
   }
 }
