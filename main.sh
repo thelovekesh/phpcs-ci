@@ -75,10 +75,14 @@ CMD+=( "--report=checkstyle" )
 CMD+=( "-q" )
 
 # Set ignore_errors_on_exit to 1 to avoid exiting with a non-zero status code.
-CMD+=( "--runtime-set ignore_errors_on_exit 1" )
+CMD+=( "--runtime-set" )
+CMD+=( "ignore_errors_on_exit" )
+CMD+=( "1" )
 
 # Set ignore_warnings_on_exit to 1 to avoid exiting with a non-zero status code.
-CMD+=( "--runtime-set ignore_warnings_on_exit 1" )
+CMD+=( "--runtime-set" )
+CMD+=( "ignore_warnings_on_exit" )
+CMD+=( "1" )
 
 # Run only if cs2pr is enabled.
 if [[ "$CS2PR" == "false" ]]; then
