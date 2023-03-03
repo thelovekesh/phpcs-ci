@@ -99,6 +99,10 @@ else
   fi
 
   echo "::group::Run ${CMD[@]}"
-  "${CMD[@]}" | cs2pr $cs2pr_flags
+  "${CMD[@]}"
+  echo "::endgroup::"
+
+  echo "::group::Run cs2pr $cs2pr_flags"
+  cs2pr $cs2pr_flags
   echo "::endgroup::"
 fi;
