@@ -14,6 +14,9 @@ ENV DOCKER_USER=loki
 ENV ACTION_WORKDIR=/home/$DOCKER_USER
 ENV DEBIAN_FRONTEND=noninteractive
 
+COPY phpcs.json /tmp/phpcs.json
+COPY bin/phpcs-init.sh main.sh entrypoint.sh /usr/local/bin/
+
 RUN useradd -m -s /bin/bash $DOCKER_USER \
   && mkdir -p $ACTION_WORKDIR \
   && chown -R $DOCKER_USER $ACTION_WORKDIR
@@ -21,7 +24,7 @@ RUN useradd -m -s /bin/bash $DOCKER_USER \
 RUN set -ex \
   && savedAptMark="$(apt-mark showmanual)" \
   && apt-mark auto '.*' > /dev/null \
-  && apt-get update && apt-get install -y --no-install-recommends git ca-certificates curl rsync gnupg jq software-properties-common \
+  && apt-get update && apt-get install -y --no-install-recommends git curl rsync jq gnupg software-properties-common \
   && LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php \
   && apt-get update \
   && for v in $PHP_BINARIES_TO_PREINSTALL; do \
@@ -33,8 +36,12 @@ RUN set -ex \
       php"$v"-xmlwriter; \
     done \
   && update-alternatives --set php /usr/bin/php${DEFAULT_PHP_VERSION} \
+  && curl -SL https://github.com/staabm/annotate-pull-request-from-checkstyle/releases/latest/download/cs2pr -o /usr/local/bin/cs2pr \
+  && chmod +x /usr/local/bin/cs2pr \
+  && bash /usr/local/bin/phpcs-init.sh ${ACTION_WORKDIR} /tmp \
   # cleanup
-  && apt-get remove software-properties-common -y \
+  && apt-get remove git curl gnupg software-properties-common -y \
+  && rm -rf bin/phpcs-init.sh /tmp/phpcs.json \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
   && { [ -z "$savedAptMark" ] || apt-mark manual $savedAptMark > /dev/null; } \
   && find /usr/local -type f -executable -exec ldd '{}' ';' \
@@ -49,13 +56,11 @@ RUN set -ex \
   && for v in $PHP_BINARIES_TO_PREINSTALL; do \
       php"$v" -v; \
     done \
+  && ${ACTION_WORKDIR}/phpcs/bin/phpcs -i \
   && php -v;
-
-COPY phpcs.json /tmp/phpcs.json
-COPY bin/phpcs-init.sh /usr/local/bin/
 
 USER $DOCKER_USER
 
 WORKDIR $ACTION_WORKDIR
 
-RUN bash /usr/local/bin/phpcs-init.sh ${ACTION_WORKDIR} /tmp
+ENTRYPOINT ["bash", "/usr/local/bin/entrypoint.sh"]
