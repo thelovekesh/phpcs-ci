@@ -1,0 +1,9 @@
+name: 'PHPCS CI'
+description: 'GitHub Action to automatically lint your PHP files with PHPCS'
+author: 'thelovekesh'
+runs:
+  using: docker
+  image: 'docker://ghcr.io/thelovekesh/phpcs-ci:1.0.0-alpha'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
