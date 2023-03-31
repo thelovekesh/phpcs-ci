@@ -4,14 +4,14 @@ name: Publish phpcs-ci Docker Image
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   test:
     name: Build and Test
     runs-on: ubuntu-20.04-8core-sl
     concurrency:
-      group: ${{ github.workflow }}-main
+      group: ${{ github.workflow }}-develop
       cancel-in-progress: true
     permissions:
       contents: read
