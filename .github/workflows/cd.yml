@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Build and Test
-    runs-on: ubuntu-20.04-8core-sl
+    runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-develop
       cancel-in-progress: true
