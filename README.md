@@ -36,7 +36,7 @@ jobs:
           fetch-depth: 0
 
       - name: Lint Code Base
-        uses: thelovekesh/phpcs-ci@v1
+        uses: thelovekesh/phpcs-ci@v1.0.1
 ```
 
 ### License
