@@ -2,7 +2,7 @@
 
 set -ex
 
-function loki_update_cs_versions(){
+function update_cs_versions(){
   local phpcs_metadata_file="phpcs.json" # Path to CodeSniffer which has repo and version info.
   local standards=$(jq -r '.standards | keys | .[]' $phpcs_metadata_file) # Standards to fetch version info for.
 
@@ -25,7 +25,7 @@ function loki_update_cs_versions(){
   done;
 }
 
-function loki_update_phpcs_version(){
+function update_phpcs_version(){
   local phpcs_metadata_file="phpcs.json" # Path to CodeSniffer which has repo and version info.
   local repo=$(jq -r '.phpcs.repo' $phpcs_metadata_file)
   local version=$(jq -r '.phpcs.version' $phpcs_metadata_file)
@@ -45,7 +45,7 @@ function loki_update_phpcs_version(){
 }
 
 # Update CodeSniffer version.
-loki_update_phpcs_version
+update_phpcs_version
 
 # Update Standards versions.
-loki_update_cs_versions
+update_cs_versions
