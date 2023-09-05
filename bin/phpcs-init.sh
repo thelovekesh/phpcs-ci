@@ -7,7 +7,7 @@ if [ "$USERNAME" == "root" ] ; then
 	exit 1
 fi
 
-function loki_cleaner(){
+function cleaner(){
   local path_to_clean=$1
 
   local files_to_clean=(
@@ -64,7 +64,7 @@ function loki_cleaner(){
   fi
 }
 
-function loki_install_phpcs {
+function install_phpcs {
   local phpcs_path="$1/phpcs" # Path to CodeSniffer
   local phpcs_metadata_file="$2/phpcs.json" # Path to CodeSniffer which has repo and version info
   local phpcs_standards_path="$phpcs_path/src/Standards" # Path to CodeSniffer Standards
@@ -79,7 +79,7 @@ function loki_install_phpcs {
 
   git clone -c advice.detachedHead=false https://github.com/$repo.git $phpcs_path --branch $version --depth 1 --quiet
 
-  loki_cleaner $phpcs_path
+  cleaner $phpcs_path
 
   installed_paths=''
 
@@ -92,7 +92,7 @@ function loki_install_phpcs {
 
     installed_paths+=",./src/Standards/$standard"
 
-    loki_cleaner $phpcs_standards_path/$standard
+    cleaner $phpcs_standards_path/$standard
   done;
 
   # Set installed_paths using phpcs --config-set
@@ -101,4 +101,4 @@ function loki_install_phpcs {
 
 # $1 - Path to install CodeSniffer at.
 # $2 - Path to phpcs.json file.
-loki_install_phpcs $1 $2
+install_phpcs $1 $2
